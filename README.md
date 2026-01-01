@@ -1,4 +1,4 @@
-# Topic Clustering of COVID-19 Open Research
+  # Topic Modeling of COVID-19 Open Research
 
 ## Overview
 This project analyzes open-access COVID-19 research papers to identify, cluster, and track major research themes and their evolution across decades. It uses semantic embeddings and unsupervised learning to group papers based on abstract meaning rather than keyword frequency.
