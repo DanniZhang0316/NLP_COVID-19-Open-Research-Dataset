@@ -1,43 +1,22 @@
- Topic Clustering of COVID-19 Open Research
-Overview
+# Topic Clustering of COVID-19 Open Research
 
-This project analyzes open-access COVID-19 research papers to identify, cluster, and track major research themes and their evolution across decades. Semantic embeddings and unsupervised clustering are used to group articles based on abstract content rather than keyword frequency.
+## Overview
+This project analyzes open-access COVID-19 research papers to identify, cluster, and track major research themes and their evolution across decades. It uses semantic embeddings and unsupervised learning to group papers based on abstract meaning rather than keyword frequency.
 
-Methods
-Semantic Embeddings
+## Dataset Overview
+The CORD-19 dataset is a large open-access collection of scientific publications related to the COVID-19 pandemic. It is curated by the Allen Institute for natural language processing challenges on Kaggle. The file metadata.csv contains over one million records and includes 19 variables that describe essential article information, such as titles, abstracts, author names, publication dates, and source details.
 
-Sentence-BERT (SBERT) was used to convert each abstract into a 384-dimensional semantic vector, capturing contextual meaning beyond keyword matching.
 
-Dimensionality Reduction
+## Methods
+- **Semantic embeddings (SBERT):** Convert each abstract into a **384-dimensional** vector representation.
+- **Dimensionality reduction (PCA):** Retain **70% variance** (`n_components=0.7`), reducing **384 → 78** dimensions.
+- **Clustering (MiniBatchKMeans):** Cluster papers into **k = 20** topics (selected via **silhouette score**).
+- **Topic labeling (TF-IDF + filtering):** Extract top terms per cluster, remove generic COVID terms (e.g., *covid*, *pandemic*, *sars-cov-2*), then **manually assign labels** with assistance from **Claude Sonnet 4.5**.
 
-Principal Component Analysis (PCA) was applied to reduce computational complexity while retaining 70% of the total variance (n_components = 0.7), reducing dimensions from 384 to 78.
+## Outputs
+- **20 labeled topics**
+- **Word clouds** for topic keywords
+- **Topic frequency over time** (1970–2020)
+- **Top 3 representative papers per topic** (cosine similarity to topic centroid)
 
-Topic Clustering
-
-Topics were identified using MiniBatchKMeans, selected for its efficiency on large datasets. The optimal number of clusters was set to k = 20 based on silhouette score analysis.
-
-Topic Interpretation
-
-TF-IDF was used to extract representative terms for each topic. Generic COVID-19 terms (e.g., covid, pandemic, sars-cov-2) were removed to improve topic clarity. Final topic labels were manually assigned with assistance from Claude Sonnet 4.5.
-
-Results
-
-20 distinct research topics identified
-
-Word clouds used to visualize topic-specific keywords
-
-Temporal analysis reveals shifts in research focus from 1970–2020
-
-Representative papers extracted for each topic using cosine similarity
-
-Tools
-
-Sentence-BERT (SBERT)
-
-PCA
-
-MiniBatchKMeans
-
-TF-IDF
-
-Cosine similarity
+[CORD-19 Dataset](https://www.kaggle.com/datasets/allen-institute-for-ai/CORD-19-research-challenge)
